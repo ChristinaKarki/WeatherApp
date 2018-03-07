@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html data-ng-app="weatherApp" lang="en">
+    <head>
+        <title>Weather Application</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="app/styles/landingPage.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body data-ng-controller="weatherController">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#myPage"><span class="glyphicon glyphicon-cog"></span> Home </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#weather">WEATHER</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="jumbotron weatherSection">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary text-center">
+                            <div class="panel-heading">Beijing</div>
+                            <div class="panel-body text-center">
+                                <div class="col-sm-6">
+                                    <div class="row tempFont">{{beijingWeatherData.main.temp}}°F</div>
+                                    <div class="row"><strong>{{beLocalDate | date: "mediumDate"}}</strong></div>
+                                    <div class="row timeSection" id="beijingTime"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row"><img src='{{beijingWeatherImageSrc}}' alt="weatherImage" width="100" height="100"><br/></div>
+                                    <div class="row"><strong> {{beijingWeatherData.weather[0].description}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                    <tr class="info">
+                                        <td>Max temp</td>
+                                        <td>{{beijingWeatherData.main.temp_max}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Min temp</td>
+                                        <td>{{beijingWeatherData.main.temp_min}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Cloudiness</td>
+                                        <td>{{beijingWeatherData.clouds.all}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Wind</td>
+                                        <td>{{beijingWeatherData.wind.speed}} miles/hour ({{beijingWeatherData.wind.deg}}°)</td>
+                                    </tr>
+                                    <tr class="info" >
+                                        <td>Pressure</td>
+                                        <td>{{beijingWeatherData.main.pressure}} hPa</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Humidity</td>
+                                        <td>{{beijingWeatherData.main.humidity}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunrise</td>
+                                        <td>{{beijingWeatherData.sys.sunriseTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunset</td>
+                                        <td>{{beijingWeatherData.sys.sunsetTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Geo Cords</td>
+                                        <td>[{{beijingWeatherData.coord.lon}}, {{beijingWeatherData.coord.lat}}]</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 ">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">New York</div>
+                            <div class="panel-body text-center">
+                                <div class="col-sm-6">
+                                    <div class="row tempFont">{{newYorkWeatherData.main.temp}}°F</div>
+                                    <div class="row"><strong >{{nyLocalDate | date: "mediumDate"}}</strong></div>
+                                    <div class="row timeSection" id="newYorktime"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row"><img src='{{nyWeatherImageSrc}}' alt="weatherImage" width="100" height="100"><br/></div>
+                                    <div class="row"><strong> {{newYorkWeatherData.weather[0].description}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                    <tr class="info">
+                                        <td>Max temp</td>
+                                        <td>{{newYorkWeatherData.main.temp_max}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Min temp</td>
+                                        <td>{{newYorkWeatherData.main.temp_min}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Cloudiness</td>
+                                        <td>{{newYorkWeatherData.clouds.all}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Wind</td>
+                                        <td>{{newYorkWeatherData.wind.speed}} miles/hour ({{newYorkWeatherData.wind.deg}}°)</td>
+                                    </tr>
+                                    <tr class="info" >
+                                        <td>Pressure</td>
+                                        <td>{{newYorkWeatherData.main.pressure}} hPa</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Humidity</td>
+                                        <td>{{newYorkWeatherData.main.humidity}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunrise</td>
+                                        <td>{{newYorkWeatherData.sys.sunriseTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunset</td>
+                                        <td>{{newYorkWeatherData.sys.sunsetTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Geo Cords</td>
+                                        <td>[{{newYorkWeatherData.coord.lon}}, {{newYorkWeatherData.coord.lat}}]</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading text-center">Brussels</div>
+                            <div class="panel-body text-center">
+                                <div class="col-sm-6">
+                                    <div class="row tempFont">{{brusselsWeatherData.main.temp}}°F</div>
+                                    <div class="row"><strong>{{brLocalDate | date: "mediumDate"}}</strong></div>
+                                    <div class="row timeSection" id="brusselsTime"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row"><img src='{{brusselsWeatherImageSrc}}' alt="weatherImage" width="100" height="100"><br/></div>
+                                    <div class="row"><strong> {{brusselsWeatherData.weather[0].description}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                    <tr class="info">
+                                        <td>Max temp</td>
+                                        <td>{{brusselsWeatherData.main.temp_max}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Min temp</td>
+                                        <td>{{brusselsWeatherImageSrc.main.temp_min}} °F</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Cloudiness</td>
+                                        <td>{{brusselsWeatherData.clouds.all}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Wind</td>
+                                        <td>{{brusselsWeatherData.wind.speed}} miles/hour ({{brusselsWeatherData.wind.deg}}°)</td>
+                                    </tr>
+                                    <tr class="info" >
+                                        <td>Pressure</td>
+                                        <td>{{brusselsWeatherData.main.pressure}} hPa</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Humidity</td>
+                                        <td>{{brusselsWeatherData.main.humidity}} %</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunrise</td>
+                                        <td>{{brusselsWeatherData.sys.sunriseTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Sunset</td>
+                                        <td>{{brusselsWeatherData.sys.sunsetTime | date: "shortTime"}}</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>Geo Cords</td>
+                                        <td>[{{brusselsWeatherData.coord.lon}}, {{brusselsWeatherData.coord.lat}}]</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="jumbotron infoSection text-center">
+                <h2>We deliver weather forecast.</h2>
+                <h5>Search by city or city,country.</h5>
+                <form class="navbar-form" role="search">
+                    <div class="input-group add-on">
+                        <input class="form-control" placeholder="Enter city name" name="srch-term" id="srch-term" type="text"
+                               data-ng-change="cityInputChange()" data-ng-model="city" >
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" data-ng-click="showWeather(city)"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div data-ng-show="cityIsEntered" class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary text-center currentWeatherPanel">
+                    <div class="panel-heading">{{weatherData.name}}</div>
+                    <div class="panel-body text-center">
+                        <div class="col-sm-6">
+                            <div class="row tempFont">{{weatherData.main.temp}}°F</div>
+                            <div class="row"><strong>{{localDate | date: "mediumDate"}}</strong></div>
+                            <div class="row timeSection" id="selectedCityTime"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row"><img src='{{weatherImageSrc}}' alt="weatherImage" width="100" height="100"><br/></div>
+                            <div class="row"><strong> {{weatherData.weather[0].description}}</strong></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer panel table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                            <tr class="info">
+                                <td>Max temp</td>
+                                <td>{{weatherData.main.temp_max}} °F</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Min temp</td>
+                                <td>{{weatherData.main.temp_min}} °F</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Cloudiness</td>
+                                <td>{{weatherData.clouds.all}} %</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Wind</td>
+                                <td>{{weatherData.wind.speed}} miles/hour ({{beijingWeatherData.wind.deg}}°)</td>
+                            </tr>
+                            <tr class="info" >
+                                <td>Pressure</td>
+                                <td>{{weatherData.main.pressure}} hPa</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Humidity</td>
+                                <td>{{weatherData.main.humidity}} %</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Sunrise</td>
+                                <td>{{weatherData.sys.sunrise * 1000 | date: "shortTime"}}</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Sunset</td>
+                                <td>{{weatherData.sys.sunset * 1000 | date: "shortTime"}}</td>
+                            </tr>
+                            <tr class="info">
+                                <td>Geo Cords</td>
+                                <td>[{{weatherData.coord.lon}}, {{weatherData.coord.lat}}]</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="container-fluid bg-footer text-center">
+            <p>Visit <a href="http://www.nyandcompany.com/?cid=sem_psg_brand_core-brand">New York & Company</a></p>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/services/weatherService.js"></script>
+        <script src="app/controllers/weatherController.js"></script>
+    </body>
+</html>
